@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{CLI tool of yao.}
   spec.description   = %q{CLI tool of yao.}
   spec.homepage      = "https://github.com/buty4649/yao-cli"
+  spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
