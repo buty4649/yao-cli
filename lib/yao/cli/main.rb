@@ -22,6 +22,9 @@ module Yao::Cli
       puts Yao::Cli::VERSION
     end
 
+    desc "lbaas", "lbaas subcommands"
+    subcommand("lbaas", Yao::Cli::LBaaS::Main)
+
     desc "server", "server subcommands"
     subcommand("server", Yao::Cli::Server)
   end
