@@ -12,6 +12,7 @@ require 'yao/resources/dumper/loadbalancer'
 require 'yao/resources/dumper/loadbalancer_pool'
 require 'yao/resources/dumper/loadbalancer_pool_member'
 require 'yao/resources/dumper/loadbalancer_listener'
+require 'yao/resources/dumper/loadbalancer_healthmonitor'
 
 module Yao::Resources
   module Dumper

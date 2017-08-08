@@ -3,6 +3,7 @@ require 'yao/cli/base'
 require 'yao/cli/lbaas/lb'
 require 'yao/cli/lbaas/listener'
 require 'yao/cli/lbaas/pool'
+require 'yao/cli/lbaas/healthmonitor'
 
 module Yao::Cli::LBaaS
   class Main < Thor
@@ -16,5 +17,8 @@ module Yao::Cli::LBaaS
 
     desc "pool", "pool subcommands"
     subcommand("pool", Yao::Cli::LBaaS::Pool)
+
+    desc "healthmonitor", "healthmonitor subcommands"
+    subcommand("healthmonitor", Yao::Cli::LBaaS::HealthMonitor)
   end
 end
