@@ -30,17 +30,7 @@ module Yao::Cli::LBaaS
       option :protocol,       :type => :string, :required => true, :enum => %w(HTTP HTTPS TCP TERMINATED_HTTPS)
       option :protocol_port,  :type => :numeric,:required => true
       def create
-        params = {
-          "loadbalancer_id" => options[:loadbalancer_id],
-          "protocol"        => options[:protocol],
-          "protocol_port"   => options[:protocol_port],
-        }
-        %w(name description).each do |key|
-          if options.key?(key)
-            params.merge!({key.to_s => options[key]})
-          end
-        end
-
+        params = generate_params
         result = Yao::Resources::LoadBalancerListener.create params
 
         # fix: すぐに出力するとcreate_atがnullでエラーになる。直るまでコメントアウト
@@ -52,15 +42,7 @@ module Yao::Cli::LBaaS
       option :description,    :type => :string
       option :name,           :type => :string
       def update(uuid)
-        params = {}
-
-        %w(admin_state_up description name).each do |key|
-          value = options[key]
-          if value
-            params.merge!(key => value)
-          end
-        end
-
+        params = generate_params
         result = Yao::Resources::LoadBalancerListener.update(uuid, params)
         pretty_output(Yao::Resources::Dumper::LoadBalancerListener.dump(result))
       end

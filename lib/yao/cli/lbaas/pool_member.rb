@@ -32,16 +32,7 @@ module Yao::Cli::LBaaS
       option :subnet_id,       :type => :string
       option :weight,          :type => :numeric
       def add(pool)
-        params = {}
-        %w(
-          name address monitor_address monitor_port
-          protocol_port subnet_id weight
-        ).each do |key|
-          if options.key?(key)
-            params.merge!({key.to_s => options[key]})
-          end
-        end
-
+        params = generate_params
         result = Yao::Resources::LoadBalancerPoolMember.create(Yao::Resources::LoadBalancerPool.new({"id" => pool}), params)
 
         # fix: すぐに出力するとvip_port_idがnullなのでエラーになる
@@ -55,17 +46,7 @@ module Yao::Cli::LBaaS
       option :monitor_port,    :type => :numeric
       option :weight,          :type => :numeric
       def update(pool, uuid)
-        params = {}
-
-        %w(
-          admin_state_up name monitor_address monitor_port weight
-        ).each do |key|
-          value = options[key]
-          if value
-            params.merge!(key => value)
-          end
-        end
-
+        params = generate_params
         result = Yao::Resources::LoadBalancerPoolMember.update(Yao::Resources::LoadBalancerPool.new({"id" => pool}), uuid, params)
         pretty_output(Yao::Resources::Dumper::LoadBalancerPoolMember.dump(result))
       end

@@ -35,16 +35,7 @@ module Yao::Cli::LBaaS
       option :type,             :type => :string, :required => true, :enum => %w(HTTP HTTPS PING TCP TLS-HELLO)
       option :url_path,         :type => :string
       def create
-        params = {}
-        %w(
-          name delay expected_codes http_method max_retries max_retries_down
-          pool_id timeout type url_path
-        ).each do |key|
-          if options.key?(key)
-            params.merge!({key.to_s => options[key]})
-          end
-        end
-
+        params = generate_params
         result = Yao::Resources::LoadBalancerHealthMonitor.create params
 
         # fix: すぐに出力するとvip_port_idがnullなのでエラーになる
@@ -62,18 +53,7 @@ module Yao::Cli::LBaaS
       option :timeout,          :type => :numeric, :required => true
       option :url_path,         :type => :string
       def update(uuid)
-        params = {}
-
-        %w(
-          admin_state_up delay expected_codes http_method
-          max_retries max_retries_down name timeout url_path
-        ).each do |key|
-          value = options[key]
-          if value
-            params.merge!(key => value)
-          end
-        end
-
+        params = generate_params
         result = Yao::Resources::LoadBalancerHealthMonitor.update(uuid, params)
         pretty_output(Yao::Resources::Dumper::LoadBalancerHealthMonitor.dump(result))
       end

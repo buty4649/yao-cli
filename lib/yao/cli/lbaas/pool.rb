@@ -37,16 +37,7 @@ module Yao::Cli::LBaaS
           exit 1
         end
 
-        params = {}
-        %w(
-          name description lb_algorithm listener_id
-          loadbalancer_id protocol
-        ).each do |key|
-          if options.key?(key)
-            params.merge!({key.to_s => options[key]})
-          end
-        end
-
+        params = generate_params
         result = Yao::Resources::LoadBalancerPool.create params
 
         # fix: すぐに出力するとvip_port_idがnullなのでエラーになる
@@ -59,15 +50,7 @@ module Yao::Cli::LBaaS
       option :name,           :type => :string
       option :lb_algorithm,   :type => :string, :enum => %w(LEAST_CONNECTIONS ROUND_ROBIN SOURCE_IP)
       def update(uuid)
-        params = {}
-
-        %w(admin_state_up description name lb_algorithm).each do |key|
-          value = options[key]
-          if value
-            params.merge!(key => value)
-          end
-        end
-
+        params = generate_params
         result = Yao::Resources::LoadBalancerPool.update(uuid, params)
         pretty_output(Yao::Resources::Dumper::LoadBalancerPool.dump(result))
       end

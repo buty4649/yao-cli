@@ -36,13 +36,7 @@ module Yao::Cli::LBaaS
           exit 1
         end
 
-        params = {}
-        (%w(name description) + vip_options).each do |key|
-          if options.key?(key)
-            params.merge!({key.to_s => options[key]})
-          end
-        end
-
+        params = generate_params
         result = Yao::Resources::LoadBalancer.create params
 
         # fix: すぐに出力するとvip_port_idがnullなのでエラーになる
@@ -54,15 +48,7 @@ module Yao::Cli::LBaaS
       option :description,    :type => :string
       option :name,           :type => :string
       def update(uuid)
-        params = {}
-
-        %w(admin_state_up description name).each do |key|
-          value = options[key]
-          if value
-            params.merge!(key => value)
-          end
-        end
-
+        params = generate_params
         result = Yao::Resources::LoadBalancer.update(uuid, params)
         pretty_output(Yao::Resources::Dumper::LoadBalancer.dump(result))
       end

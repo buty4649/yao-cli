@@ -17,6 +17,19 @@ module Yao::Cli
       /^[\da-f]{8}-([\da-f]{4}-){3}[\da-f]{12}$/ === str
     end
 
+    def generate_params
+      command = caller.first.split(' ')[1].delete('`').delete("'")
+      command_options = self.class.commands[command].options.map do |opt|
+        opt.first.to_s
+      end
+
+      command_options.map do |name|
+        if opt = options[name]
+          [name, opt]
+        end
+      end.compact.to_h
+    end
+
     class << self
       def banner(command, namespace = nil, subcommand = false)
         if namespace.nil? && !subcommand
