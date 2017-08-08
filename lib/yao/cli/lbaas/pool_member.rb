@@ -4,14 +4,14 @@ module Yao::Cli::LBaaS
     class PoolMember < Yao::Cli::Base
       namespace "lbaas pool member"
 
-      desc "list <pool>", "list pool members"
+      desc "list <pool>", "list members"
       def list(pool)
         result = Yao::Resources::LoadBalancerPoolMember.list(Yao::Resources::LoadBalancerPool.find pool)
 
         pretty_output(Yao::Resources::Dumper::LoadBalancerPoolMember.dump(result))
       end
 
-      desc "show <pool> <uuid or name>", "show loadbalancer details"
+      desc "show <pool> <uuid or name>", "show member details"
       def show(pool, id_or_name)
         if is_uuid?(id_or_name)
           result = Yao::Resources::LoadBalancerPoolMember.find(Yao::Resources::LoadBalancerPool.new({"id" => pool}), id_or_name)

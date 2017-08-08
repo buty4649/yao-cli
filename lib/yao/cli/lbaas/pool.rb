@@ -12,7 +12,7 @@ module Yao::Cli::LBaaS
         pretty_output(Yao::Resources::Dumper::LoadBalancerPool.dump(result))
       end
 
-      desc "show <uuid or name>", "show loadbalancer details"
+      desc "show <uuid or name>", "show pool details"
       def show(id_or_name)
         if is_uuid?(id_or_name)
           result = Yao::Resources::LoadBalancerPool.find id_or_name
@@ -24,7 +24,7 @@ module Yao::Cli::LBaaS
         pretty_output(Yao::Resources::Dumper::LoadBalancerPool.dump(result))
       end
 
-      desc "create", "create loadbalancer"
+      desc "create", "create pool"
       option :name,            :type => :string
       option :description,     :type => :string
       option :lb_algorithm,    :type => :string, :required => true, :enum => %w(LEAST_CONNECTIONS ROUND_ROBIN SOURCE_IP)
@@ -44,7 +44,7 @@ module Yao::Cli::LBaaS
         #pretty_output(Yao::Resources::Dumper::LoadBalancerPool.dump(result))
       end
 
-      desc "update <uuid>", "update loadbalancer"
+      desc "update <uuid>", "update pool "
       option :admin_state_up, :type => :boolean
       option :description,    :type => :string
       option :name,           :type => :string
@@ -55,7 +55,7 @@ module Yao::Cli::LBaaS
         pretty_output(Yao::Resources::Dumper::LoadBalancerPool.dump(result))
       end
 
-      desc "remove <uuid>", "remove loadbalancer"
+      desc "remove <uuid>", "remove pool"
       def remove(uuid)
         Yao::Resources::LoadBalancerPool.destroy(uuid)
       end

@@ -11,7 +11,7 @@ module Yao::Cli::LBaaS
         pretty_output(Yao::Resources::Dumper::LoadBalancerListener.dump(result))
       end
 
-      desc "show <uuid or name>", "show loadbalancer details"
+      desc "show <uuid or name>", "show listener details"
       def show(id_or_name)
         if is_uuid?(id_or_name)
           result = Yao::Resources::LoadBalancerListener.find id_or_name
@@ -23,7 +23,7 @@ module Yao::Cli::LBaaS
         pretty_output(Yao::Resources::Dumper::LoadBalancerListener.dump(result))
       end
 
-      desc "create", "create loadbalancer"
+      desc "create", "create listener"
       option :name,           :type => :string
       option :description,    :type => :string
       option :loadbalancer_id,:type => :string, :required => true
@@ -37,7 +37,7 @@ module Yao::Cli::LBaaS
         #pretty_output(Yao::Resources::Dumper::LoadBalancerListener.dump(result))
       end
 
-      desc "update <uuid>", "update loadbalancer"
+      desc "update <uuid>", "update listener"
       option :admin_state_up, :type => :boolean
       option :description,    :type => :string
       option :name,           :type => :string
@@ -47,7 +47,7 @@ module Yao::Cli::LBaaS
         pretty_output(Yao::Resources::Dumper::LoadBalancerListener.dump(result))
       end
 
-      desc "remove <uuid>", "remove loadbalancer"
+      desc "remove <uuid>", "remove listener"
       option :cascade, :type => :boolean
       def remove(uuid)
         Yao::Resources::LoadBalancerListener.destroy(uuid)
