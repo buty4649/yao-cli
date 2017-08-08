@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "yao-cli"
   spec.version       = Yao::Cli::VERSION
   spec.authors       = ["Yuki Koya"]
-  spec.email         = ["ykky@pepabo.com"]
+  spec.email         = ["buty4649@gmail.com"]
 
   spec.summary       = %q{CLI tool of yao.}
   spec.description   = %q{CLI tool of yao.}
