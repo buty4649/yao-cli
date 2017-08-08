@@ -1,4 +1,5 @@
 require 'yao/cli/base'
+require 'yao/cli/lbaas/pool_member'
 
 module Yao::Cli::LBaaS
     class Pool < Yao::Cli::Base
@@ -75,6 +76,9 @@ module Yao::Cli::LBaaS
       def remove(uuid)
         Yao::Resources::LoadBalancerPool.destroy(uuid)
       end
+
+      desc "member", "pool member subcommands"
+      subcommand("member", Yao::Cli::LBaaS::PoolMember)
 
       class << self
         def banner(command, namespace = nil, subcommand = false)

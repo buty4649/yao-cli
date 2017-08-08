@@ -10,6 +10,7 @@ require 'yao/resources/dumper/subnet'
 require 'yao/resources/dumper/port'
 require 'yao/resources/dumper/loadbalancer'
 require 'yao/resources/dumper/loadbalancer_pool'
+require 'yao/resources/dumper/loadbalancer_pool_member'
 require 'yao/resources/dumper/loadbalancer_listener'
 
 module Yao::Resources
