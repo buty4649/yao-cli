@@ -3,8 +3,8 @@ require 'yao/cli/formatter'
 
 module Yao::Cli
   class Base < Thor
-    class_option :format, :type => :string, :default => "json", :aliases => :f,
-      :enum => Yao::Cli::Formatter.formats, :desc => "Output format"
+    class_option :format, :type => :string, :lazy_default => "json", :aliases => :f,
+      :enum => Yao::Cli::Formatter.formats, :desc => "Output format (default: json)"
 
     private
     def pretty_output(obj)
