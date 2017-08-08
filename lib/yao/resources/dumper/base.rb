@@ -37,7 +37,11 @@ module Yao::Resources::Dumper
           result = Object.const_get("Yao::Resources::Dumper::#{m[1]}").dump(resource)
         end
       end
-      result
+      if result.instance_of?(Array)
+        result.size == 1 ? result.first : result
+      else
+        result
+      end
     end
   end
 end
