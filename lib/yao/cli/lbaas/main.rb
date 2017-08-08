@@ -2,6 +2,7 @@ require 'thor'
 require 'yao/cli/base'
 require 'yao/cli/lbaas/lb'
 require 'yao/cli/lbaas/listener'
+require 'yao/cli/lbaas/pool'
 
 module Yao::Cli::LBaaS
   class Main < Thor
@@ -12,5 +13,8 @@ module Yao::Cli::LBaaS
 
     desc "listener", "listener subcommands"
     subcommand("listener", Yao::Cli::LBaaS::Listener)
+
+    desc "pool", "pool subcommands"
+    subcommand("pool", Yao::Cli::LBaaS::Pool)
   end
 end
