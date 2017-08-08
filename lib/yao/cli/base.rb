@@ -17,6 +17,15 @@ module Yao::Cli
       /^[\da-f]{8}-([\da-f]{4}-){3}[\da-f]{12}$/ === str
     end
 
-
+    class << self
+      def banner(command, namespace = nil, subcommand = false)
+        if namespace.nil? && !subcommand
+          # yao lbaas lb help <command> のときにUsageがおかしくなるので対処
+          super(command, false, true)
+        else
+          super
+        end
+      end
+    end
   end
 end

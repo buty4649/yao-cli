@@ -79,16 +79,5 @@ module Yao::Cli::LBaaS
 
       desc "member", "pool member subcommands"
       subcommand("member", Yao::Cli::LBaaS::PoolMember)
-
-      class << self
-        def banner(command, namespace = nil, subcommand = false)
-          if namespace.nil? && !subcommand
-            # yao lbaas lb help <command> のときにUsageがおかしくなるので対処
-            super(command, false, true)
-          else
-            super
-          end
-        end
-      end
     end
 end

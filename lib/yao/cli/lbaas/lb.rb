@@ -72,16 +72,5 @@ module Yao::Cli::LBaaS
       def remove(uuid)
         Yao::Resources::LoadBalancer.delete(uuid)
       end
-
-      class << self
-        def banner(command, namespace = nil, subcommand = false)
-          if namespace.nil? && !subcommand
-            # yao lbaas lb help <command> のときにUsageがおかしくなるので対処
-            super(command, false, true)
-          else
-            super
-          end
-        end
-      end
     end
 end
