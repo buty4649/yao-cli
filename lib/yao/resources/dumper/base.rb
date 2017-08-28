@@ -5,18 +5,28 @@ module Yao::Resources::Dumper
       @fields = v
     end
 
+    def self.bug_fields=(v)
+      @bug_fields = v
+    end
+
     def self.dump(obj)
       [obj].flatten.map do |o|
         arr = @fields.map{|field|
-          result = o.send(field)
+          # bugfixされるまで特定のメソッドは `_id` をつける
+          if @bug_fields.include?(field)
+            name = field + "_id"
+            [name, o.send("[]", name)]
+          else
+            result = o.send(field)
 
-          result = if result.instance_of?(Array)
-                    result.map{|r| resource_dump(r)}
-                   else
-                    resource_dump(result)
-                   end
+            result = if result.instance_of?(Array)
+                      result.map{|r| resource_dump(r)}
+                    else
+                      resource_dump(result)
+                    end
 
-          [field, result]
+            [field, result]
+          end
         }.flatten(1)
 
         Hash[*arr]

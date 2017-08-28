@@ -8,5 +8,9 @@ module Yao::Resources::Dumper
       project vip_network vip_port vip_subnet listeners pools
     )
 
+    self.bug_fields = %w(
+      project vip_network vip_port vip_subnet
+    )
+    
   end
 end
