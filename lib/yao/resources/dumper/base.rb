@@ -5,6 +5,10 @@ module Yao::Resources::Dumper
       @fields = v
     end
 
+    def initialize
+      @bug_fields = []
+    end
+
     def self.bug_fields=(v)
       @bug_fields = v
     end
