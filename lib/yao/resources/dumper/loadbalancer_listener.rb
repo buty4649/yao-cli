@@ -8,5 +8,9 @@ module Yao::Resources::Dumper
     
     )
 
+    self.bug_fields = %w(
+      project
+    )
+
   end
 end

@@ -6,5 +6,9 @@ module Yao::Resources::Dumper
       session_persistence operating_status name
     )
 
+    self.bug_fields = %w(
+      project
+    )
+
   end
 end
