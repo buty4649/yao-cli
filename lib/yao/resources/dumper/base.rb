@@ -5,10 +5,6 @@ module Yao::Resources::Dumper
       @fields = v
     end
 
-    def initialize
-      @bug_fields = []
-    end
-
     def self.bug_fields=(v)
       @bug_fields = v
     end
@@ -17,7 +13,7 @@ module Yao::Resources::Dumper
       [obj].flatten.map do |o|
         arr = @fields.map{|field|
           # bugfixされるまで特定のメソッドは `_id` をつける
-          if @bug_fields.include?(field)
+          if [@bug_fields].flatten.include?(field)
             name = field + "_id"
             [name, o.send("[]", name)]
           else
