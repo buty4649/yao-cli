@@ -5,6 +5,28 @@ module Yao::Cli
   class Base < Thor
     class_option :format, :type => :string, :aliases => :f,
       :enum => Yao::Cli::Formatter.formats, :desc => "Output format (default: json)"
+    class_option :debug, :type => :boolean, :aliases => :d,
+      :default => false, :desc => "Enable debug mode"
+
+    no_commands do
+      def invoke_command(commands, *args)
+        if commands.name != "help"
+          debug_flag = options[:debug]
+          Yao.configure do
+            auth_url    ENV['OS_AUTH_URL']
+            tenant_name ENV['OS_TENANT_NAME']
+            username    ENV['OS_USERNAME']
+            password    ENV['OS_PASSWORD']
+            client_cert ENV['OS_CERT']
+            client_key  ENV['OS_KEY']
+            region_name ENV['OS_REGION_NAME']
+            debug       debug_flag
+          end
+        end
+
+        super
+      end
+    end
 
     private
     def pretty_output(obj)
